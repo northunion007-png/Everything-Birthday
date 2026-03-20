@@ -2,178 +2,41 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>برای عشقم ❤️</title>
+<title>Love</title>
+
 <style>
 body {
-  margin:0;
-  font-family: 'Tahoma', sans-serif;
-  background: black;
-  color: white;
-  overflow:hidden;
-}
-.page {
-  position:absolute;
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+  background:black;
+  color:white;
   text-align:center;
-  opacity:0;
-  transition:1s;
-  padding:20px;
+  font-family:Tahoma;
 }
-.active { opacity:1; }
 
 button {
-  padding:12px 25px;
-  font-size:18px;
-  background:#ff4d6d;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
+  padding:15px;
+  font-size:20px;
   margin-top:20px;
-  color:white;
-}
-
-#typing {
-  width:80%;
-  font-size:22px;
-  line-height:1.8;
-}
-
-.envelope {
-  width:220px;
-  height:140px;
-  background:#ff4d6d;
-  position:relative;
-  cursor:pointer;
-}
-.envelope:before {
-  content:"";
-  position:absolute;
-  top:-70px;
-  border-left:110px solid transparent;
-  border-right:110px solid transparent;
-  border-bottom:70px solid #ff4d6d;
-  transition:0.5s;
-}
-.open:before {
-  transform:rotateX(180deg);
-}
-
-.star {
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  animation:twinkle 2s infinite;
-}
-@keyframes twinkle {
-  0%{opacity:0}
-  50%{opacity:1}
-  100%{opacity:0}
 }
 </style>
+
 </head>
+
 <body>
 
-<!-- صفحه 1 -->
-<div class="page active" id="p1">
+<div id="p1">
   <h1>یک چیز خاص برای تو...</h1>
-  <button onclick="next(2)">شروع کن ❤️</button>
+  <button onclick="go()">شروع کن ❤️</button>
 </div>
 
-<!-- صفحه 2 تایپ -->
-<div class="page" id="p2">
-  <div id="typing"></div>
-  <button id="btn-next-2" style="display:none;" onclick="next(3)">ادامه ➡️</button>
+<div id="p2" style="display:none;">
+  <h2>صفحه دوم باز شد 😍</h2>
+  <p>این یعنی همه چیز درست کار می‌کند</p>
 </div>
-
-<!-- صفحه 3 پاکت -->
-<div class="page" id="p3">
-  <h2>یک نامه برای تو ✉️</h2>
-  <div class="envelope" onclick="openEnvelope(this)"></div>
-  <p>روی پاکت کلیک کن...</p>
-</div>
-
-<!-- صفحه 4 متن -->
-<div class="page" id="p4">
-  <h2>عشق من...</h2>
-  <p>
-امروز فقط یک روز نیست…<br>
-روز تولد توست، یعنی روزی که دنیا قشنگ‌تر شد…<br><br>
-تو برای من فقط یک آدم نیستی…<br>
-تو آرامشی هستی که همیشه دنبالش بودم…<br><br>
-وقتی به تو فکر می‌کنم، همه‌چیز معنی پیدا می‌کند…<br>
-دوست داشتن تو، انتخاب نبود… سرنوشت بود…<br><br>
-“در ازل پرتو حسنت ز تجلی دم زد  
-عشق پیدا شد و آتش به همه عالم زد…”<br><br>
-تو همان نوری هستی که زندگی‌ام را روشن کرد…<br>
-اگر روزی خسته شدی… اگر دنیا سخت شد… فقط یادت باشد من هستم…<br>
-همیشه…<br><br>
-دوستت دارم… بیشتر از هر چیزی که بتوانم بگویم…
-  </p>
-  <button onclick="next(5)">ادامه ❤️</button>
-</div>
-
-<!-- صفحه 5 پایان -->
-<div class="page" id="p5">
-  <h1>تولدت مبارک ❤️</h1>
-  <h2>تو تمام دنیای منی...</h2>
-  <p>پایان؟ نه… این فقط شروع ماست ❤️</p>
-</div>
-
-<!-- موزیک آنلاین -->
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-/* تغییر صفحه */
-function next(n){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("p"+n).classList.add("active");
-
-  // شروع تایپ وقتی صفحه 2 فعال شد
-  if(n === 2){
-    startTyping();
-  }
-}
-
-/* تایپ خودکار متن */
-let text = "نمی‌دانم از کجا شروع کنم... اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️ تولدت مبارک عشق من...";
-let i=0;
-function startTyping(){
-  i=0;
-  document.getElementById("typing").innerHTML="";
-  document.getElementById("btn-next-2").style.display="none";
-  function typeChar(){
-    if(i<text.length){
-      document.getElementById("typing").innerHTML += text.charAt(i);
-      i++;
-      setTimeout(typeChar,40);
-    } else {
-      document.getElementById("btn-next-2").style.display="inline-block";
-    }
-  }
-  typeChar();
-}
-
-/* پاکت باز شدن */
-function openEnvelope(el){
-  el.classList.add("open");
-  setTimeout(()=>next(4),800);
-}
-
-/* ستاره‌ها */
-for(let i=0;i<120;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.top=Math.random()*100+"%";
-  s.style.left=Math.random()*100+"%";
-  document.body.appendChild(s);
+function go(){
+  document.getElementById("p1").style.display="none";
+  document.getElementById("p2").style.display="block";
 }
 </script>
 
