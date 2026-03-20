@@ -2,21 +2,83 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>Birthday ❤️</title>
+<title>برای عشقم ❤️</title>
 
 <style>
 body {
+  margin:0;
+  font-family:Tahoma;
   background:black;
   color:white;
-  text-align:center;
-  font-family:Tahoma;
+  overflow:hidden;
 }
 
+/* صفحات */
+.page {
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transition:1s;
+}
+
+.active {
+  opacity:1;
+}
+
+/* دکمه */
 button {
-  padding:15px;
+  padding:15px 30px;
   font-size:20px;
-  margin-top:20px;
+  background:#ff4d6d;
+  border:none;
+  border-radius:10px;
   cursor:pointer;
+  color:white;
+  margin-top:20px;
+}
+
+/* ستاره‌ها */
+.star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%{opacity:0}
+  50%{opacity:1}
+  100%{opacity:0}
+}
+
+/* پاکت */
+.envelope {
+  width:220px;
+  height:140px;
+  background:#ff4d6d;
+  position:relative;
+  cursor:pointer;
+}
+
+.envelope:before {
+  content:"";
+  position:absolute;
+  top:-70px;
+  border-left:110px solid transparent;
+  border-right:110px solid transparent;
+  border-bottom:70px solid #ff4d6d;
+  transition:0.5s;
+}
+
+.open:before {
+  transform:rotateX(180deg);
 }
 </style>
 
@@ -24,21 +86,73 @@ button {
 
 <body>
 
-<div id="p1">
+<!-- صفحه 1 -->
+<div class="page active" id="p1">
   <h1>یک چیز خاص برای تو...</h1>
-  <button id="btn">شروع کن ❤️</button>
+  <button onclick="nextPage(2)">شروع کن ❤️</button>
 </div>
 
-<div id="p2" style="display:none;">
-  <h2>الان وارد دنیای من شدی 😍</h2>
-  <p>حالا همه چیز درست کار می‌کند ❤️</p>
+<!-- صفحه 2 -->
+<div class="page" id="p2">
+  <h2>نمی‌دانم از کجا شروع کنم...</h2>
+  <p>اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️</p>
+  <button onclick="nextPage(3)">ادامه ➡️</button>
 </div>
+
+<!-- صفحه 3 پاکت -->
+<div class="page" id="p3">
+  <h2>یک نامه برای تو ✉️</h2>
+  <div class="envelope" onclick="openEnvelope(this)"></div>
+  <p>روی پاکت کلیک کن...</p>
+</div>
+
+<!-- صفحه 4 -->
+<div class="page" id="p4">
+  <h2>عشق من...</h2>
+  <p>
+امروز فقط یک روز نیست…<br>
+روز تولد توست…<br><br>
+تو آرامش قلب منی…<br>
+تو دلیل لبخند منی…<br><br>
+دوستت دارم… بیشتر از همه چیز ❤️
+  </p>
+  <button onclick="nextPage(5)">ادامه ❤️</button>
+</div>
+
+<!-- صفحه 5 -->
+<div class="page" id="p5">
+  <h1>تولدت مبارک ❤️</h1>
+  <h2>تو تمام دنیای منی...</h2>
+</div>
+
+<!-- موزیک -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
 
 <script>
-document.getElementById("btn").addEventListener("click", function() {
-  document.getElementById("p1").style.display = "none";
-  document.getElementById("p2").style.display = "block";
-});
+
+/* تغییر صفحه */
+function nextPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("p"+n).classList.add("active");
+}
+
+/* پاکت */
+function openEnvelope(el){
+  el.classList.add("open");
+  setTimeout(()=>nextPage(4),800);
+}
+
+/* ستاره‌ها */
+for(let i=0;i<150;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"%";
+  s.style.left=Math.random()*100+"%";
+  document.body.appendChild(s);
+}
+
 </script>
 
 </body>
