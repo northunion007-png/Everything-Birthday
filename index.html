@@ -7,7 +7,7 @@
 <style>
 body {
   margin:0;
-  font-family:Tahoma;
+  font-family:Tahoma, sans-serif;
   background:black;
   color:white;
   text-align:center;
@@ -39,9 +39,15 @@ button {
 
 /* تایمر */
 #countdown {
-  font-size:20px;
-  margin-top:15px;
+  font-size:80px;
+  font-weight:bold;
+  color:#ff4d6d;
+}
+
+#message {
+  font-size:50px;
   color:#ffb3c1;
+  margin-top:30px;
 }
 
 /* پاکت حرفه‌ای */
@@ -54,7 +60,6 @@ button {
   cursor:pointer;
   perspective:1000px;
 }
-
 .flap {
   position:absolute;
   width:100%;
@@ -63,12 +68,9 @@ button {
   transform-origin:top;
   transition:1s;
 }
-
 .envelope.open .flap {
   transform:rotateX(180deg);
 }
-
-/* نامه داخل */
 .letter {
   position:absolute;
   width:90%;
@@ -83,7 +85,6 @@ button {
   opacity:0;
   transition:1s;
 }
-
 .envelope.open .letter {
   opacity:1;
 }
@@ -115,7 +116,6 @@ button {
 </style>
 
 </head>
-
 <body>
 
 <!-- صفحه رمز -->
@@ -126,15 +126,16 @@ button {
   <button onclick="checkPass()">ورود</button>
 </div>
 
-<!-- صفحه 1 -->
+<!-- صفحه 1 با تایمر شمارش معکوس -->
 <div id="p1" class="page">
-  <h1>🎂 22 March</h1>
-  <h2>یک چیز خاص برای تو...</h2>
-  <div id="countdown"></div>
-  <button onclick="go(2)">شروع کن ❤️</button>
+  <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+    <div id="countdown"></div>
+    <div id="message"></div>
+    <button id="nextBtn" style="display:none; padding:20px 40px; font-size:25px; margin-top:40px; background:#ff4d6d; border:none; border-radius:10px; cursor:pointer;" onclick="go(2)">ادامه ❤️</button>
+  </div>
 </div>
 
-<!-- صفحه 2 -->
+<!-- صفحه 2 متن کوتاه قبل پاکت -->
 <div id="p2" class="page">
   <h2>نمی‌دانم از کجا شروع کنم...</h2>
   <p>اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️</p>
@@ -144,12 +145,10 @@ button {
 <!-- صفحه 3 پاکت -->
 <div id="p3" class="page">
   <h2>یک نامه برای تو ✉️</h2>
-
   <div class="envelope" onclick="openEnvelope(this)">
     <div class="flap"></div>
     <div class="letter">برای تو ❤️</div>
   </div>
-
   <p>روی پاکت کلیک کن</p>
 </div>
 
@@ -176,17 +175,16 @@ button {
 دوستت دارم…<br>
 بیشتر از هر چیزی در این دنیا ❤️
   </p>
-
   <button onclick="go(5)">ادامه ❤️</button>
 </div>
 
-<!-- صفحه آخر -->
+<!-- صفحه 5 تولد -->
 <div id="p5" class="page">
   <h1>تولدت مبارک ❤️</h1>
   <h2>تو تمام دنیای منی</h2>
 </div>
 
-<!-- موزیک -->
+<!-- موزیک عاشقانه -->
 <audio autoplay loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c5c2c6f9b.mp3">
 </audio>
@@ -195,11 +193,12 @@ button {
 
 /* رمز */
 function checkPass(){
-  if(document.getElementById("pass").value.toLowerCase()=="my everything"){
+  if(document.getElementById("pass").value.toLowerCase() === "my everything"){
     document.getElementById("lock").classList.remove("active");
     document.getElementById("p1").classList.add("active");
+    startCountdown();
   } else {
-    alert("رمز اشتباه است");
+    alert("رمز اشتباه است 😅");
   }
 }
 
@@ -215,33 +214,44 @@ function openEnvelope(el){
   setTimeout(()=>go(4),1500);
 }
 
-/* تایمر تا 22 مارچ */
-let target = new Date("March 22, 2026 00:00:00").getTime();
+/* تایمر شمارش معکوس 10 ثانیه */
+function startCountdown(){
+  let countdownNumber = 10;
+  let countdownEl = document.getElementById("countdown");
+  let messageEl = document.getElementById("message");
+  let nextBtn = document.getElementById("nextBtn");
 
-setInterval(()=>{
-  let now = new Date().getTime();
-  let diff = target - now;
+  countdownEl.innerHTML = countdownNumber;
+  messageEl.innerHTML = "";
 
-  let d = Math.floor(diff/(1000*60*60*24));
-  let h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  let m = Math.floor((diff%(1000*60*60))/(1000*60));
-  let s = Math.floor((diff%(1000*60))/1000);
+  let timer = setInterval(()=>{
+    countdownNumber--;
+    if(countdownNumber >= 0){
+      countdownEl.innerHTML = countdownNumber;
+    }
 
-  document.getElementById("countdown").innerHTML =
-    "⏳ " + d+" روز "+h+" ساعت "+m+" دقیقه "+s+" ثانیه";
-},1000);
+    if(countdownNumber === 0){
+      clearInterval(timer);
+      countdownEl.style.display = "none";
+      messageEl.innerHTML = "تولدت مبارک همه دار و ندارمممممممممممممممممممم ❤️";
+      messageEl.style.fontSize = "60px";
+      nextBtn.style.display = "inline-block";
+    }
+  },1000);
+}
 
-/* قلب */
+/* قلب بارانی */
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"%";
+  h.style.fontSize=(Math.random()*20+10)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
 },300);
 
-/* ستاره */
+/* ستاره‌ها */
 for(let i=0;i<100;i++){
   let s=document.createElement("div");
   s.className="star";
