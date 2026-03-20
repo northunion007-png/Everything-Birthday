@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>Love ❤️</title>
+<title>My Everything ❤️</title>
 
 <style>
 body {
@@ -11,27 +11,92 @@ body {
   background:black;
   color:white;
   text-align:center;
+  overflow:hidden;
 }
 
 /* صفحات */
 .page {
   display:none;
-  padding-top:100px;
+  padding-top:60px;
+  opacity:0;
+  transition:1s;
 }
-
 .active {
   display:block;
+  opacity:1;
 }
 
 /* دکمه */
 button {
-  padding:15px 25px;
-  font-size:20px;
+  padding:12px 25px;
+  font-size:18px;
   background:#ff4d6d;
   border:none;
   border-radius:10px;
   color:white;
   cursor:pointer;
+}
+
+/* تایمر */
+#countdown {
+  font-size:20px;
+  margin-top:15px;
+  color:#ffb3c1;
+}
+
+/* پاکت حرفه‌ای */
+.envelope {
+  width:220px;
+  height:140px;
+  background:#ff4d6d;
+  margin:auto;
+  position:relative;
+  cursor:pointer;
+  perspective:1000px;
+}
+
+.flap {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#ff4d6d;
+  transform-origin:top;
+  transition:1s;
+}
+
+.envelope.open .flap {
+  transform:rotateX(180deg);
+}
+
+/* نامه داخل */
+.letter {
+  position:absolute;
+  width:90%;
+  height:90%;
+  background:white;
+  color:black;
+  top:5%;
+  left:5%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:1s;
+}
+
+.envelope.open .letter {
+  opacity:1;
+}
+
+/* قلب */
+.heart {
+  position:fixed;
+  color:red;
+  animation:fall 5s linear infinite;
+}
+@keyframes fall {
+  0%{top:-10%}
+  100%{top:110%}
 }
 
 /* ستاره */
@@ -42,7 +107,6 @@ button {
   background:white;
   animation:twinkle 2s infinite;
 }
-
 @keyframes twinkle {
   0%{opacity:0}
   50%{opacity:1}
@@ -54,52 +118,131 @@ button {
 
 <body>
 
+<!-- صفحه رمز -->
+<div id="lock" class="page active">
+  <h1>🔒 My Everything</h1>
+  <input id="pass" placeholder="رمز..." style="padding:10px;">
+  <br><br>
+  <button onclick="checkPass()">ورود</button>
+</div>
+
 <!-- صفحه 1 -->
-<div id="p1" class="page active">
-  <h1>یک چیز خاص برای تو...</h1>
+<div id="p1" class="page">
+  <h1>🎂 22 March</h1>
+  <h2>یک چیز خاص برای تو...</h2>
+  <div id="countdown"></div>
   <button onclick="go(2)">شروع کن ❤️</button>
 </div>
 
 <!-- صفحه 2 -->
 <div id="p2" class="page">
-  <h2>بالاخره آمدی اینجا 😍</h2>
-  <p>این تازه شروعشه...</p>
+  <h2>نمی‌دانم از کجا شروع کنم...</h2>
+  <p>اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️</p>
   <button onclick="go(3)">ادامه ➡️</button>
 </div>
 
-<!-- صفحه 3 -->
+<!-- صفحه 3 پاکت -->
 <div id="p3" class="page">
   <h2>یک نامه برای تو ✉️</h2>
-  <button onclick="go(4)">بازش کن</button>
+
+  <div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+    <div class="letter">برای تو ❤️</div>
+  </div>
+
+  <p>روی پاکت کلیک کن</p>
 </div>
 
-<!-- صفحه 4 -->
+<!-- صفحه 4 متن کامل -->
 <div id="p4" class="page">
   <h2>عشق من...</h2>
   <p>
-تو بهترین اتفاق زندگی منی ❤️<br>
-تو دلیل لبخند منی...<br><br>
-دوستت دارم...
+امروز فقط یک روز نیست…<br>
+این روز، روزی است که دنیا زیباتر شد…<br><br>
+
+تو برای من فقط یک آدم نیستی…<br>
+تو آرامش قلب منی…<br>
+تو دلیل لبخندهای منی…<br><br>
+
+هر لحظه که به تو فکر می‌کنم،<br>
+زندگی برایم معنا پیدا می‌کند…<br><br>
+
+دوست داشتن تو انتخاب نبود…<br>
+سرنوشت بود…<br><br>
+
+تو همان نوری هستی که زندگی مرا روشن کرد…<br>
+و من همیشه کنار تو خواهم ماند…<br><br>
+
+دوستت دارم…<br>
+بیشتر از هر چیزی در این دنیا ❤️
   </p>
+
   <button onclick="go(5)">ادامه ❤️</button>
 </div>
 
-<!-- صفحه 5 -->
+<!-- صفحه آخر -->
 <div id="p5" class="page">
   <h1>تولدت مبارک ❤️</h1>
   <h2>تو تمام دنیای منی</h2>
 </div>
 
+<!-- موزیک -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c5c2c6f9b.mp3">
+</audio>
+
 <script>
+
+/* رمز */
+function checkPass(){
+  if(document.getElementById("pass").value.toLowerCase()=="my everything"){
+    document.getElementById("lock").classList.remove("active");
+    document.getElementById("p1").classList.add("active");
+  } else {
+    alert("رمز اشتباه است");
+  }
+}
 
 /* تغییر صفحه */
 function go(n){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('p'+n).classList.add('active');
 }
 
-/* ستاره‌ها */
-for(let i=0;i<120;i++){
+/* پاکت */
+function openEnvelope(el){
+  el.classList.add("open");
+  setTimeout(()=>go(4),1500);
+}
+
+/* تایمر تا 22 مارچ */
+let target = new Date("March 22, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+  let now = new Date().getTime();
+  let diff = target - now;
+
+  let d = Math.floor(diff/(1000*60*60*24));
+  let h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  let m = Math.floor((diff%(1000*60*60))/(1000*60));
+  let s = Math.floor((diff%(1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML =
+    "⏳ " + d+" روز "+h+" ساعت "+m+" دقیقه "+s+" ثانیه";
+},1000);
+
+/* قلب */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},300);
+
+/* ستاره */
+for(let i=0;i<100;i++){
   let s=document.createElement("div");
   s.className="star";
   s.style.top=Math.random()*100+"%";
