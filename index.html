@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>Love</title>
+<title>Birthday ❤️</title>
 
 <style>
 body {
@@ -16,6 +16,7 @@ button {
   padding:15px;
   font-size:20px;
   margin-top:20px;
+  cursor:pointer;
 }
 </style>
 
@@ -25,19 +26,19 @@ button {
 
 <div id="p1">
   <h1>یک چیز خاص برای تو...</h1>
-  <button onclick="go()">شروع کن ❤️</button>
+  <button id="btn">شروع کن ❤️</button>
 </div>
 
 <div id="p2" style="display:none;">
-  <h2>صفحه دوم باز شد 😍</h2>
-  <p>این یعنی همه چیز درست کار می‌کند</p>
+  <h2>الان وارد دنیای من شدی 😍</h2>
+  <p>حالا همه چیز درست کار می‌کند ❤️</p>
 </div>
 
 <script>
-function go(){
-  document.getElementById("p1").style.display="none";
-  document.getElementById("p2").style.display="block";
-}
+document.getElementById("btn").addEventListener("click", function() {
+  document.getElementById("p1").style.display = "none";
+  document.getElementById("p2").style.display = "block";
+});
 </script>
 
 </body>
