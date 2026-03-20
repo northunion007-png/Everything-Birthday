@@ -88,7 +88,7 @@ button {
 <!-- صفحه 2 تایپ -->
 <div class="page" id="p2">
   <div id="typing"></div>
-  <button onclick="next(3)">ادامه ➡️</button>
+  <button id="btn-next-2" style="display:none;" onclick="next(3)">ادامه ➡️</button>
 </div>
 
 <!-- صفحه 3 پاکت -->
@@ -104,16 +104,12 @@ button {
   <p>
 امروز فقط یک روز نیست…<br>
 روز تولد توست، یعنی روزی که دنیا قشنگ‌تر شد…<br><br>
-
 تو برای من فقط یک آدم نیستی…<br>
 تو آرامشی هستی که همیشه دنبالش بودم…<br><br>
-
 وقتی به تو فکر می‌کنم، همه‌چیز معنی پیدا می‌کند…<br>
 دوست داشتن تو، انتخاب نبود… سرنوشت بود…<br><br>
-
 “در ازل پرتو حسنت ز تجلی دم زد  
 عشق پیدا شد و آتش به همه عالم زد…”<br><br>
-
 تو همان نوری هستی که زندگی‌ام را روشن کرد…<br>
 اگر روزی خسته شدی… اگر دنیا سخت شد… فقط یادت باشد من هستم…<br>
 همیشه…<br><br>
@@ -139,20 +135,33 @@ button {
 function next(n){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("p"+n).classList.add("active");
-}
 
-/* تایپ */
-let text = "نمی‌دانم از کجا شروع کنم... اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️ تولدت مبارک عشق من...";
-let i=0;
-function type(){
-  if(i<text.length){
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(type,40);
+  // شروع تایپ وقتی صفحه 2 فعال شد
+  if(n === 2){
+    startTyping();
   }
 }
 
-/* پاکت */
+/* تایپ خودکار متن */
+let text = "نمی‌دانم از کجا شروع کنم... اما فقط می‌دانم تو بهترین اتفاق زندگی منی ❤️ تولدت مبارک عشق من...";
+let i=0;
+function startTyping(){
+  i=0;
+  document.getElementById("typing").innerHTML="";
+  document.getElementById("btn-next-2").style.display="none";
+  function typeChar(){
+    if(i<text.length){
+      document.getElementById("typing").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeChar,40);
+    } else {
+      document.getElementById("btn-next-2").style.display="inline-block";
+    }
+  }
+  typeChar();
+}
+
+/* پاکت باز شدن */
 function openEnvelope(el){
   el.classList.add("open");
   setTimeout(()=>next(4),800);
@@ -166,9 +175,6 @@ for(let i=0;i<120;i++){
   s.style.left=Math.random()*100+"%";
   document.body.appendChild(s);
 }
-
-/* شروع تایپ بعد از لود کامل */
-document.addEventListener("DOMContentLoaded", type);
 </script>
 
 </body>
