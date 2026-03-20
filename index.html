@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>برای عشقم ❤️</title>
-
 <style>
 body {
   margin:0;
@@ -12,7 +11,6 @@ body {
   color: white;
   overflow:hidden;
 }
-
 .page {
   position:absolute;
   width:100%;
@@ -26,7 +24,6 @@ body {
   transition:1s;
   padding:20px;
 }
-
 .active { opacity:1; }
 
 button {
@@ -40,14 +37,12 @@ button {
   color:white;
 }
 
-/* تایپ */
 #typing {
   width:80%;
   font-size:22px;
   line-height:1.8;
 }
 
-/* پاکت */
 .envelope {
   width:220px;
   height:140px;
@@ -55,7 +50,6 @@ button {
   position:relative;
   cursor:pointer;
 }
-
 .envelope:before {
   content:"";
   position:absolute;
@@ -65,12 +59,10 @@ button {
   border-bottom:70px solid #ff4d6d;
   transition:0.5s;
 }
-
 .open:before {
   transform:rotateX(180deg);
 }
 
-/* ستاره */
 .star {
   position:absolute;
   width:2px;
@@ -78,16 +70,13 @@ button {
   background:white;
   animation:twinkle 2s infinite;
 }
-
 @keyframes twinkle {
   0%{opacity:0}
   50%{opacity:1}
   100%{opacity:0}
 }
 </style>
-
 </head>
-
 <body>
 
 <!-- صفحه 1 -->
@@ -113,31 +102,22 @@ button {
 <div class="page" id="p4">
   <h2>عشق من...</h2>
   <p>
-امروز فقط یک روز نیست…  
-روز تولد توست، یعنی روزی که دنیا قشنگ‌تر شد…  
+امروز فقط یک روز نیست…<br>
+روز تولد توست، یعنی روزی که دنیا قشنگ‌تر شد…<br><br>
 
-تو برای من فقط یک آدم نیستی…  
-تو آرامشی هستی که همیشه دنبالش بودم…  
+تو برای من فقط یک آدم نیستی…<br>
+تو آرامشی هستی که همیشه دنبالش بودم…<br><br>
 
-وقتی به تو فکر می‌کنم،  
-همه‌چیز معنی پیدا می‌کند…  
-
-دوست داشتن تو، انتخاب نبود…  
-سرنوشت بود…  
+وقتی به تو فکر می‌کنم، همه‌چیز معنی پیدا می‌کند…<br>
+دوست داشتن تو، انتخاب نبود… سرنوشت بود…<br><br>
 
 “در ازل پرتو حسنت ز تجلی دم زد  
-عشق پیدا شد و آتش به همه عالم زد…”
+عشق پیدا شد و آتش به همه عالم زد…”<br><br>
 
-تو همان نوری هستی که زندگی‌ام را روشن کرد…  
-
-اگر روزی خسته شدی…  
-اگر دنیا سخت شد…  
-فقط یادت باشد من هستم…  
-
-همیشه…  
-
-دوستت دارم…  
-بیشتر از هر چیزی که بتوانم بگویم…
+تو همان نوری هستی که زندگی‌ام را روشن کرد…<br>
+اگر روزی خسته شدی… اگر دنیا سخت شد… فقط یادت باشد من هستم…<br>
+همیشه…<br><br>
+دوستت دارم… بیشتر از هر چیزی که بتوانم بگویم…
   </p>
   <button onclick="next(5)">ادامه ❤️</button>
 </div>
@@ -155,7 +135,6 @@ button {
 </audio>
 
 <script>
-
 /* تغییر صفحه */
 function next(n){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -172,7 +151,6 @@ function type(){
     setTimeout(type,40);
   }
 }
-type();
 
 /* پاکت */
 function openEnvelope(el){
@@ -180,7 +158,7 @@ function openEnvelope(el){
   setTimeout(()=>next(4),800);
 }
 
-/* ستاره */
+/* ستاره‌ها */
 for(let i=0;i<120;i++){
   let s=document.createElement("div");
   s.className="star";
@@ -189,6 +167,8 @@ for(let i=0;i<120;i++){
   document.body.appendChild(s);
 }
 
+/* شروع تایپ بعد از لود کامل */
+document.addEventListener("DOMContentLoaded", type);
 </script>
 
 </body>
